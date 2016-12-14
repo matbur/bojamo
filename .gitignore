@@ -93,3 +93,7 @@ ENV/
 
 .gitignore
 .idea/
+
+*.vpp.bak*
+*.vpp.lck*
+*.vux*
