@@ -1,18 +1,20 @@
 from django.db import models
 
 
-# Create your models here.
-
 class User(models.Model):
     name = models.CharField(max_length=25)
     surname = models.CharField(max_length=35)
     login = models.CharField(max_length=25)
     email = models.EmailField(max_length=40)
     password = models.CharField(max_length=40)
-    permission = models.PositiveSmallIntegerField()
-    url = models.CharField(max_length=80)
-    description = models.TextField()
+    permission = models.PositiveSmallIntegerField(default=1)
+    url = models.CharField(max_length=80, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
     activated = models.BooleanField()
+
+    def __str__(self):
+        return '{} {}'.format(self.name, self.surname)
+
 
 class Group(models.Model):
     owner = models.IntegerField()
@@ -20,10 +22,12 @@ class Group(models.Model):
     date = models.DateField()
     description = models.TextField()
 
+
 class UserGroup(models.Model):
     user = models.ForeignKey(User)
     group = models.ForeignKey(Group)
     permission = models.PositiveSmallIntegerField()
+
 
 class Project(models.Model):
     group = models.ForeignKey(Group)
@@ -33,24 +37,30 @@ class Project(models.Model):
     repository = models.CharField(max_length=80)
     url = models.CharField(max_length=80)
 
+
 class UserProject(models.Model):
     user = models.ForeignKey(User)
     project = models.ForeignKey(Project)
     permission = models.PositiveSmallIntegerField()
 
+
 class Message(models.Model):
     content = models.TextField()
     date = models.DateField()
+
 
 class UserMessage(models.Model):
     user = models.ForeignKey(User)
     message = models.ForeignKey(Message)
 
+
 class Status(models.Model):
     name = models.CharField(max_length=20)
 
+
 class Priority(models.Model):
     name = models.CharField(max_length=20)
+
 
 class Task(models.Model):
     project = models.ForeignKey(Project)
@@ -61,18 +71,22 @@ class Task(models.Model):
     reporter = models.ForeignKey(User)
     priority = models.ForeignKey(Priority)
 
+
 class UserTask(models.Model):
     user = models.ForeignKey(User)
     task = models.ForeignKey(Task)
+
 
 class Comment(models.Model):
     task = models.ForeignKey(Task)
     content = models.TextField()
     date = models.DateField()
 
+
 class UserComment(models.Model):
     user = models.ForeignKey(User)
     comment = models.ForeignKey(Comment)
+
 
 class Sprint(models.Model):
     project = models.ForeignKey(Project)
@@ -80,6 +94,7 @@ class Sprint(models.Model):
     end = models.DateField()
     number = models.IntegerField()
     status = models.BooleanField()
+
 
 class SprintTask(models.Model):
     sprint = models.ForeignKey(Sprint)

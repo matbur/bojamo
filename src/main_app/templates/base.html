@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bojamo</title>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="{% url 'users' %}">users</a></li>
+        <li><a href="{% url 'projects' %}">projects</a></li>
+    </ul>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>
