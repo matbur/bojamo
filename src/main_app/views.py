@@ -1,8 +1,8 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
 
 from .forms import PriorityForm, StatusForm, UserForm
-from .models import User
+from .models import Group, User, UserGroup
 
 
 def index(request):
@@ -20,7 +20,7 @@ def get_users(request):
 
 
 def get_projects(request):
-    return ''
+    return HttpResponse('empty')
 
 
 def add_user(request):
@@ -57,3 +57,23 @@ def add_priority(request):
             print('priority not valid')
 
         return HttpResponseRedirect('/')
+
+
+def get_user(request, name):
+    user = get_object_or_404(User.objects, username=name)
+    groups_owner = Group.objects.filter(owner=user)
+    groups_member = [i.group for i in UserGroup.objects.filter(user=user)]
+    context = {'user': user, 'groups_owner': groups_owner, 'groups_member': groups_member}
+    return render(request, 'user.html', context)
+
+
+def get_group(request, name):
+    group = get_object_or_404(Group.objects, name=name)
+    members = [i.user for i in UserGroup.objects.filter(group=group)]
+    context = {'group': group, 'members': members}
+    return render(request, 'group.html', context)
+
+
+def get_groups(request):
+    groups = Group.objects.all()
+    return render(request, 'groups.html', {'groups': groups})

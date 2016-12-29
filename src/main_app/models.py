@@ -1,32 +1,39 @@
 from django.db import models
+from django.utils import timezone
 
 
 class User(models.Model):
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=35)
     email = models.EmailField(max_length=40, unique=True)
-    name = models.CharField(max_length=25, unique=True)
+    username = models.CharField(max_length=25, unique=True)
     password = models.CharField(max_length=40)
-    permission = models.PositiveSmallIntegerField(default=1)
-    url = models.CharField(max_length=80, null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
-    activated = models.BooleanField(default=True)
+    permissions = models.PositiveSmallIntegerField(default=1)
+    url = models.CharField(max_length=80, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
-        return '{} "{}" {}'.format(self.first_name, self.name, self.last_name)
+        return '{} "{}" {}'.format(self.first_name, self.username, self.last_name)
 
 
 class Group(models.Model):
-    owner = models.IntegerField()
+    owner = models.ForeignKey(User)
     name = models.CharField(max_length=50)
-    date = models.DateField()
-    description = models.TextField()
+    date = models.DateField(default=timezone.now)
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
 
 
 class UserGroup(models.Model):
     user = models.ForeignKey(User)
     group = models.ForeignKey(Group)
-    permission = models.PositiveSmallIntegerField()
+    permissions = models.PositiveSmallIntegerField(default=1)
+
+    def __str__(self):
+        return '({}, {})'.format(self.user.username, self.group)
 
 
 class Project(models.Model):
@@ -41,7 +48,7 @@ class Project(models.Model):
 class UserProject(models.Model):
     user = models.ForeignKey(User)
     project = models.ForeignKey(Project)
-    permission = models.PositiveSmallIntegerField()
+    permissions = models.PositiveSmallIntegerField()
 
 
 class Message(models.Model):

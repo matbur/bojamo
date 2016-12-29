@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ user.username }}</h1>
+    <h3>Info:</h3>
+    <table>
+        <tr>
+            <td>first name</td>
+            <td>{{ user.first_name }}</td>
+        </tr>
+        <tr>
+            <td>last name</td>
+            <td>{{ user.last_name }}</td>
+        </tr>
+        <tr>
+            <td>email</td>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <td>permissions</td>
+            <td>{{ user.permissions }}</td>
+        </tr>
+        <tr>
+            <td>url</td>
+            <td>{{ user.url }}</td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td>{{ user.description }}</td>
+        </tr>
+        <tr>
+            <td>active</td>
+            <td>{{ user.active }}</td>
+        </tr>
+    </table>
+
+    <h3>Groups:</h3>
+
+    <h4>owner</h4>
+    {% if groups_owner %}
+        <ul>
+            {% for group in groups_owner %}
+                <li><a href="{% url 'get_group' group %}">{{ group }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No groups owner</p>
+    {% endif %}
+
+    <h4>member</h4>
+    {% if groups_member %}
+        <ul>
+            {% for group in groups_member %}
+                <li><a href="{% url 'get_group' group %}">{{ group }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No groups member</p>
+    {% endif %}
+{% endblock %}

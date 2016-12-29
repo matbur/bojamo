@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ group.name }}</h1>
+    <table>
+        <tr>
+            <td>owner</td>
+            <td><a href="{% url 'get_user' group.owner.username %}">{{ group.owner }}</a></td>
+        </tr>
+        <tr>
+            <td>members</td>
+            <td>
+                <ul>
+                    {% for member in members %}
+                        <li><a href="{% url 'get_user' member.username %}">{{ member }}</a></li>
+                    {% endfor %}
+
+                </ul>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

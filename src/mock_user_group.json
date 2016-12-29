@@ -1,0 +1,502 @@
+[
+  {
+    "user": 10,
+    "group": 10,
+    "permissions": 7
+  },
+  {
+    "user": 28,
+    "group": 19,
+    "permissions": 2
+  },
+  {
+    "user": 67,
+    "group": 24,
+    "permissions": 3
+  },
+  {
+    "user": 66,
+    "group": 18,
+    "permissions": 7
+  },
+  {
+    "user": 68,
+    "group": 30,
+    "permissions": 4
+  },
+  {
+    "user": 81,
+    "group": 12,
+    "permissions": 2
+  },
+  {
+    "user": 92,
+    "group": 13,
+    "permissions": 3
+  },
+  {
+    "user": 86,
+    "group": 24,
+    "permissions": 6
+  },
+  {
+    "user": 47,
+    "group": 9,
+    "permissions": 1
+  },
+  {
+    "user": 27,
+    "group": 13,
+    "permissions": 8
+  },
+  {
+    "user": 16,
+    "group": 24,
+    "permissions": 5
+  },
+  {
+    "user": 8,
+    "group": 1,
+    "permissions": 6
+  },
+  {
+    "user": 16,
+    "group": 1,
+    "permissions": 5
+  },
+  {
+    "user": 8,
+    "group": 27,
+    "permissions": 3
+  },
+  {
+    "user": 28,
+    "group": 12,
+    "permissions": 10
+  },
+  {
+    "user": 78,
+    "group": 13,
+    "permissions": 5
+  },
+  {
+    "user": 6,
+    "group": 27,
+    "permissions": 1
+  },
+  {
+    "user": 71,
+    "group": 20,
+    "permissions": 8
+  },
+  {
+    "user": 4,
+    "group": 25,
+    "permissions": 3
+  },
+  {
+    "user": 76,
+    "group": 15,
+    "permissions": 8
+  },
+  {
+    "user": 10,
+    "group": 9,
+    "permissions": 6
+  },
+  {
+    "user": 66,
+    "group": 5,
+    "permissions": 2
+  },
+  {
+    "user": 9,
+    "group": 8,
+    "permissions": 4
+  },
+  {
+    "user": 36,
+    "group": 17,
+    "permissions": 3
+  },
+  {
+    "user": 12,
+    "group": 24,
+    "permissions": 5
+  },
+  {
+    "user": 75,
+    "group": 18,
+    "permissions": 9
+  },
+  {
+    "user": 52,
+    "group": 18,
+    "permissions": 7
+  },
+  {
+    "user": 75,
+    "group": 27,
+    "permissions": 4
+  },
+  {
+    "user": 16,
+    "group": 8,
+    "permissions": 1
+  },
+  {
+    "user": 32,
+    "group": 17,
+    "permissions": 4
+  },
+  {
+    "user": 36,
+    "group": 26,
+    "permissions": 2
+  },
+  {
+    "user": 18,
+    "group": 17,
+    "permissions": 8
+  },
+  {
+    "user": 63,
+    "group": 25,
+    "permissions": 2
+  },
+  {
+    "user": 72,
+    "group": 5,
+    "permissions": 1
+  },
+  {
+    "user": 16,
+    "group": 30,
+    "permissions": 9
+  },
+  {
+    "user": 95,
+    "group": 24,
+    "permissions": 7
+  },
+  {
+    "user": 41,
+    "group": 18,
+    "permissions": 9
+  },
+  {
+    "user": 26,
+    "group": 18,
+    "permissions": 8
+  },
+  {
+    "user": 51,
+    "group": 15,
+    "permissions": 1
+  },
+  {
+    "user": 89,
+    "group": 18,
+    "permissions": 7
+  },
+  {
+    "user": 4,
+    "group": 14,
+    "permissions": 8
+  },
+  {
+    "user": 31,
+    "group": 16,
+    "permissions": 1
+  },
+  {
+    "user": 80,
+    "group": 12,
+    "permissions": 7
+  },
+  {
+    "user": 44,
+    "group": 5,
+    "permissions": 1
+  },
+  {
+    "user": 13,
+    "group": 29,
+    "permissions": 3
+  },
+  {
+    "user": 72,
+    "group": 29,
+    "permissions": 9
+  },
+  {
+    "user": 35,
+    "group": 6,
+    "permissions": 1
+  },
+  {
+    "user": 2,
+    "group": 1,
+    "permissions": 8
+  },
+  {
+    "user": 66,
+    "group": 4,
+    "permissions": 5
+  },
+  {
+    "user": 69,
+    "group": 21,
+    "permissions": 2
+  },
+  {
+    "user": 81,
+    "group": 22,
+    "permissions": 5
+  },
+  {
+    "user": 31,
+    "group": 15,
+    "permissions": 10
+  },
+  {
+    "user": 71,
+    "group": 5,
+    "permissions": 6
+  },
+  {
+    "user": 1,
+    "group": 15,
+    "permissions": 2
+  },
+  {
+    "user": 29,
+    "group": 30,
+    "permissions": 9
+  },
+  {
+    "user": 21,
+    "group": 10,
+    "permissions": 3
+  },
+  {
+    "user": 16,
+    "group": 28,
+    "permissions": 6
+  },
+  {
+    "user": 34,
+    "group": 13,
+    "permissions": 3
+  },
+  {
+    "user": 20,
+    "group": 26,
+    "permissions": 10
+  },
+  {
+    "user": 94,
+    "group": 19,
+    "permissions": 2
+  },
+  {
+    "user": 61,
+    "group": 1,
+    "permissions": 9
+  },
+  {
+    "user": 54,
+    "group": 14,
+    "permissions": 1
+  },
+  {
+    "user": 46,
+    "group": 8,
+    "permissions": 10
+  },
+  {
+    "user": 48,
+    "group": 20,
+    "permissions": 10
+  },
+  {
+    "user": 2,
+    "group": 30,
+    "permissions": 4
+  },
+  {
+    "user": 83,
+    "group": 18,
+    "permissions": 8
+  },
+  {
+    "user": 44,
+    "group": 22,
+    "permissions": 6
+  },
+  {
+    "user": 13,
+    "group": 20,
+    "permissions": 4
+  },
+  {
+    "user": 46,
+    "group": 2,
+    "permissions": 8
+  },
+  {
+    "user": 46,
+    "group": 9,
+    "permissions": 4
+  },
+  {
+    "user": 4,
+    "group": 18,
+    "permissions": 7
+  },
+  {
+    "user": 88,
+    "group": 15,
+    "permissions": 3
+  },
+  {
+    "user": 17,
+    "group": 9,
+    "permissions": 10
+  },
+  {
+    "user": 48,
+    "group": 18,
+    "permissions": 8
+  },
+  {
+    "user": 17,
+    "group": 6,
+    "permissions": 6
+  },
+  {
+    "user": 52,
+    "group": 4,
+    "permissions": 9
+  },
+  {
+    "user": 91,
+    "group": 1,
+    "permissions": 5
+  },
+  {
+    "user": 73,
+    "group": 22,
+    "permissions": 3
+  },
+  {
+    "user": 18,
+    "group": 24,
+    "permissions": 7
+  },
+  {
+    "user": 67,
+    "group": 18,
+    "permissions": 1
+  },
+  {
+    "user": 52,
+    "group": 3,
+    "permissions": 3
+  },
+  {
+    "user": 67,
+    "group": 23,
+    "permissions": 10
+  },
+  {
+    "user": 8,
+    "group": 26,
+    "permissions": 3
+  },
+  {
+    "user": 97,
+    "group": 22,
+    "permissions": 6
+  },
+  {
+    "user": 7,
+    "group": 22,
+    "permissions": 5
+  },
+  {
+    "user": 5,
+    "group": 1,
+    "permissions": 7
+  },
+  {
+    "user": 32,
+    "group": 20,
+    "permissions": 3
+  },
+  {
+    "user": 83,
+    "group": 3,
+    "permissions": 5
+  },
+  {
+    "user": 53,
+    "group": 19,
+    "permissions": 6
+  },
+  {
+    "user": 92,
+    "group": 19,
+    "permissions": 7
+  },
+  {
+    "user": 89,
+    "group": 14,
+    "permissions": 7
+  },
+  {
+    "user": 78,
+    "group": 17,
+    "permissions": 6
+  },
+  {
+    "user": 39,
+    "group": 8,
+    "permissions": 7
+  },
+  {
+    "user": 80,
+    "group": 15,
+    "permissions": 9
+  },
+  {
+    "user": 80,
+    "group": 17,
+    "permissions": 5
+  },
+  {
+    "user": 3,
+    "group": 18,
+    "permissions": 10
+  },
+  {
+    "user": 6,
+    "group": 7,
+    "permissions": 2
+  },
+  {
+    "user": 16,
+    "group": 2,
+    "permissions": 7
+  },
+  {
+    "user": 57,
+    "group": 10,
+    "permissions": 10
+  },
+  {
+    "user": 68,
+    "group": 7,
+    "permissions": 5
+  }
+]
