@@ -55,11 +55,23 @@ class UserMessage(models.Model):
 
 
 class Status(models.Model):
-    name = models.CharField(max_length=20)
+    class Meta:
+        verbose_name_plural = 'Statuses'
+
+    name = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Priority(models.Model):
-    name = models.CharField(max_length=20)
+    class Meta:
+        verbose_name_plural = 'Priorities'
+
+    name = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Task(models.Model):
