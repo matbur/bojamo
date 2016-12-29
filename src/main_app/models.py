@@ -2,18 +2,18 @@ from django.db import models
 
 
 class User(models.Model):
-    name = models.CharField(max_length=25)
-    surname = models.CharField(max_length=35)
-    login = models.CharField(max_length=25)
-    email = models.EmailField(max_length=40)
+    first_name = models.CharField(max_length=25)
+    last_name = models.CharField(max_length=35)
+    email = models.EmailField(max_length=40, unique=True)
+    name = models.CharField(max_length=25, unique=True)
     password = models.CharField(max_length=40)
     permission = models.PositiveSmallIntegerField(default=1)
     url = models.CharField(max_length=80, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    activated = models.BooleanField()
+    activated = models.BooleanField(default=True)
 
     def __str__(self):
-        return '{} {}'.format(self.name, self.surname)
+        return '{} "{}" {}'.format(self.first_name, self.name, self.last_name)
 
 
 class Group(models.Model):
