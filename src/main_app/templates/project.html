@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ project.name }}</h1>
+    <table>
+        <tr>
+            <td>group</td>
+            <td><a href="{% url 'get_group' project.group %}">{{ project.group }}</a></td>
+        </tr>
+        <tr>
+            <td>date</td>
+            <td>{{ project.date }}</td>
+        </tr>
+        <tr>
+            <td>repository</td>
+            <td>{{ project.repository }}</td>
+        </tr>
+        <tr>
+            <td>url</td>
+            <td>{{ project.url }}</td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td>{{ project.description }}</td>
+        </tr>
+        <tr>
+            <td>users</td>
+            <td>
+                <ul>
+                    {% for user in users %}
+                        <li><a href="{% url 'get_user' user.username %}">{{ user }}</a></li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>
+{% endblock %}

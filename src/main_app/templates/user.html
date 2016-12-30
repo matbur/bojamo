@@ -2,8 +2,10 @@
 
 {% block content %}
     <h1>{{ user.username }}</h1>
-    <h3>Info:</h3>
     <table>
+        <tr>
+            <td><h3>Info:</h3></td>
+        </tr>
         <tr>
             <td>first name</td>
             <td>{{ user.first_name }}</td>
@@ -32,29 +34,51 @@
             <td>active</td>
             <td>{{ user.active }}</td>
         </tr>
+
+        <tr>
+            <td><h3>Groups:</h3></td>
+        </tr>
+        <tr>
+            <td><h4>owner</h4></td>
+            <td>
+                {% if groups_owner %}
+                    <ul>
+                        {% for group in groups_owner %}
+                            <li><a href="{% url 'get_group' group %}">{{ group }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No groups owner</p>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><h4>member</h4></td>
+            <td>
+                {% if groups_member %}
+                    <ul>
+                        {% for group in groups_member %}
+                            <li><a href="{% url 'get_group' group %}">{{ group }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No groups member</p>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><h3>Tasks:</h3></td>
+            <td>
+                {% if tasks %}
+                    <ul>
+                        {% for task in tasks %}
+                            <li><a href="{% url 'get_task' task.id %}">{{ task }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No tasks</p>
+                {% endif %}
+            </td>
+        </tr>
     </table>
-
-    <h3>Groups:</h3>
-
-    <h4>owner</h4>
-    {% if groups_owner %}
-        <ul>
-            {% for group in groups_owner %}
-                <li><a href="{% url 'get_group' group %}">{{ group }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No groups owner</p>
-    {% endif %}
-
-    <h4>member</h4>
-    {% if groups_member %}
-        <ul>
-            {% for group in groups_member %}
-                <li><a href="{% url 'get_group' group %}">{{ group }}</a></li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No groups member</p>
-    {% endif %}
 {% endblock %}

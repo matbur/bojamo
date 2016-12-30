@@ -35,12 +35,15 @@ class UserGroup(models.Model):
     def __str__(self):
         return '({}, {})'.format(self.user.username, self.group)
 
+    class Meta:
+        unique_together = ['user', 'group']
+
 
 class Project(models.Model):
     group = models.ForeignKey(Group)
-    name = models.CharField(max_length=100)
-    description = models.TextField()
-    date = models.DateField()
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True, null=True)
+    date = models.DateField(default=timezone.now)
     repository = models.CharField(max_length=80)
     url = models.CharField(max_length=80)
 
@@ -49,6 +52,9 @@ class UserProject(models.Model):
     user = models.ForeignKey(User)
     project = models.ForeignKey(Project)
     permissions = models.PositiveSmallIntegerField()
+
+    class Meta:
+        unique_together = ['user', 'project']
 
 
 class Message(models.Model):
@@ -62,30 +68,30 @@ class UserMessage(models.Model):
 
 
 class Status(models.Model):
+    name = models.CharField(max_length=20, unique=True)
+
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = 'Statuses'
 
-    name = models.CharField(max_length=20, unique=True)
-
-    def __str__(self):
-        return self.name
-
 
 class Priority(models.Model):
-    class Meta:
-        verbose_name_plural = 'Priorities'
-
     name = models.CharField(max_length=20, unique=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Priorities'
 
 
 class Task(models.Model):
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=50)
-    time = models.PositiveIntegerField()
-    description = models.TextField()
+    time = models.PositiveIntegerField(default=timezone.now)
+    description = models.TextField(blank=True, null=True)
     status = models.ForeignKey(Status)
     reporter = models.ForeignKey(User)
     priority = models.ForeignKey(Priority)
@@ -95,16 +101,22 @@ class UserTask(models.Model):
     user = models.ForeignKey(User)
     task = models.ForeignKey(Task)
 
+    class Meta:
+        unique_together = ['user', 'task']
+
 
 class Comment(models.Model):
     task = models.ForeignKey(Task)
     content = models.TextField()
-    date = models.DateField()
+    date = models.DateField(default=timezone.now)
 
 
 class UserComment(models.Model):
     user = models.ForeignKey(User)
     comment = models.ForeignKey(Comment)
+
+    class Meta:
+        unique_together = ['user', 'comment']
 
 
 class Sprint(models.Model):

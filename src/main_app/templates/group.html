@@ -14,9 +14,12 @@
                     {% for member in members %}
                         <li><a href="{% url 'get_user' member.username %}">{{ member }}</a></li>
                     {% endfor %}
-
                 </ul>
             </td>
+        </tr>
+        <tr>
+            <td>description</td>
+            <td>{{ group.description }}</td>
         </tr>
     </table>
 {% endblock %}
