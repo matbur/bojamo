@@ -105,11 +105,27 @@ def user_login(request):
         form = LoginForm(data=request.POST)
 
         if form.is_valid():
+            request.session['username'] = str(form['username'].value())
             print('User verification successful')
+            return dashboard(request)
         else:
             print('User verification unsuccessful')
             context['errors']=form.errors
         return render(request, 'main_app/index.html', context)
+
+
+def dashboard(request):
+    print('dashboard')
+    username = request.session.get('username', None)
+    if not username:
+        context = { 'authorization':'Authorization error! You have to be logged in!'}
+        return render(request, 'main_app/dashboard.html', context)
+    context ={ 'welcome' : 'Welcome in bojamo project!'+username}
+    user = get_object_or_404(User.objects, username=username)
+    context['groups_member'] = [i.group for i in UserGroup.objects.filter(user=user)]
+    context['user_projects'] = [i.project for i in UserProject.objects.filter(user=user)]
+    context['user_tasks'] = UserTask.objects.filter(user=user)
+    return render(request, 'main_app/dashboard.html', context)
 
 
 def user_registration(request):

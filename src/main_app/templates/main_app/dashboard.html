@@ -1,0 +1,40 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+    {%  if authorization%}
+        <div>{{ authorization }}</div>
+    {% endif %}
+    {%  if welcome%}
+        <div> {{ welcome }} </div>
+    {% endif %}
+    <table>
+        <tr>
+            <td><h4>member</h4></td>
+            <td>
+                {% if groups_member %}
+                    <ul>
+                        {% for group in groups_member %}
+                            <li><a href="{% url 'get_group' group %}">{{ group }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No groups member</p>
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td><h3>Tasks:</h3></td>
+            <td>
+                {% if user_tasks %}
+                    <ul>
+                        {% for task in user_tasks %}
+                            <li><a href="{% url 'get_task' task.id %}">{{ task }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No tasks</p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+{% endblock %}
