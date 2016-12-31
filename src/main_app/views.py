@@ -95,7 +95,7 @@ def registration(request):
     context = {
         'user_registration_form': UserRegistrationForm()
     }
-    return render(request, 'registration.html', context)
+    return render(request, 'main_app/registration.html', context)
 
 
 def user_registration(request):
@@ -110,7 +110,7 @@ def user_registration(request):
         else:
             print('User verification unsuccessful')
             context['errors']=form.errors
-        return render(request, 'registration.html', context)
+        return render(request, 'main_app/registration.html', context)
 
 
 def add_status(request):
