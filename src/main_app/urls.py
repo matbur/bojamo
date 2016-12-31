@@ -9,6 +9,9 @@ urlpatterns = [
     url(r'^user/(\w+)$', views.get_user, name='get_user'),
     url(r'add_user$', views.add_user, name='add_user'),
 
+    url(r'^registration$', views.registration, name='registration'),
+    url(r'user_registration$', views.user_registration, name='user_registration'),
+
     url(r'^groups$', views.get_groups, name='groups'),
     url(r'^group/(\w+)$', views.get_group, name='get_group'),
 

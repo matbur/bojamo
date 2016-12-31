@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h3>Fill registration form:</h3>
+    <form action="{% url 'user_registration' %}" method="post">
+        {% csrf_token %}
+        {{ user_registration_form.as_p }}
+        <input type="submit" value="Submit"/>
+    </form>
+
+    {% if errors %}
+        {% for key,value in errors.items %}
+                <li>{{ value }}</li>
+        {% endfor %}
+    {% endif %}
+    {% if success %}
+        <div>{{ success }}</div>
+    {% endif %}
+
+{% endblock %}

@@ -1,7 +1,8 @@
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
-from .forms import PriorityForm, StatusForm, UserForm
+from .forms import PriorityForm, StatusForm, UserForm, UserRegistrationForm
 from .models import Group, Project, User, UserGroup, UserProject, UserTask
 
 
@@ -12,7 +13,6 @@ def index(request):
         'priority_form': PriorityForm(),
     }
     return render(request, 'index.html', context)
-
 
 def get_users(request):
     users = User.objects.all()
@@ -89,6 +89,28 @@ def get_comments(request):
 
 def get_comment(request):
     return render(request, 'comment.html')
+
+
+def registration(request):
+    context = {
+        'user_registration_form': UserRegistrationForm()
+    }
+    return render(request, 'registration.html', context)
+
+
+def user_registration(request):
+    context = { 'user_registration_form': UserRegistrationForm()}
+    if request.method == 'POST':
+        form = UserRegistrationForm(data=request.POST)
+
+        if form.is_valid():
+            print('User verification successful')
+            context['success'] = form._success
+            form.save()
+        else:
+            print('User verification unsuccessful')
+            context['errors']=form.errors
+        return render(request, 'registration.html', context)
 
 
 def add_status(request):
