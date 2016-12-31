@@ -34,6 +34,18 @@ class UserRegistrationForm(forms.ModelForm):
         return self.cleaned_data
 
 
+class LoginForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = {'username', 'password'}
+        widgets = {'password': forms.PasswordInput()}
+
+    def clean(self):
+        form = self.cleaned_data
+        if not User.objects.filter(username=form['username'], password=form['password']):
+            self.errors['authentication'] = 'Username or password is invalid!'
+        return self.cleaned_data
+
 class StatusForm(forms.ModelForm):
     class Meta:
         model = Status

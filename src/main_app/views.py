@@ -2,15 +2,15 @@ from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
-from .forms import PriorityForm, StatusForm, UserForm, UserRegistrationForm
+from .forms import PriorityForm, StatusForm, UserForm, UserRegistrationForm, LoginForm
 from .models import Group, Project, User, UserGroup, UserProject, UserTask
 
 
 def index(request):
     context = {
-        'user_form': UserForm(),
-        'status_form': StatusForm(),
-        'priority_form': PriorityForm(),
+        'login_form': LoginForm(),
+        #'status_form': StatusForm(),
+        #'priority_form': PriorityForm(),
     }
     return render(request, 'main_app/index.html', context)
 
@@ -96,6 +96,20 @@ def registration(request):
         'user_registration_form': UserRegistrationForm()
     }
     return render(request, 'main_app/registration.html', context)
+
+def user_login(request):
+    context = {
+        'login_form': LoginForm(),
+    }
+    if request.method == 'POST':
+        form = LoginForm(data=request.POST)
+
+        if form.is_valid():
+            print('User verification successful')
+        else:
+            print('User verification unsuccessful')
+            context['errors']=form.errors
+        return render(request, 'main_app/index.html', context)
 
 
 def user_registration(request):

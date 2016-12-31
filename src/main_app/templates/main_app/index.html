@@ -3,32 +3,18 @@
 {% block content %}
     <h1>bojamo</h1>
 
-    <h3>Add user:</h3>
-    <form action="{% url 'add_user' %}" method="post">
-        {% csrf_token %}
-        {{ user_form.as_p }}
+    <form action="{% url 'user_login' %}" method="post">
+    {% csrf_token %}
+        {{ login_form.as_p }}
         <input type="submit" value="Submit"/>
     </form>
-
-    <h3>Add status:</h3>
-    <form action="{% url 'add_status' %}" method="post">
-        {% csrf_token %}
-        {{ status_form.as_p }}
-        <input type="submit" value="Submit"/>
-    </form>
-
-    <h3>Add priority:</h3>
-    <form action="{% url 'add_priority' %}" method="post">
-        {% csrf_token %}
-        {{ priority_form.as_p }}
-        <input type="submit" value="Submit"/>
-    </form>
-
-    <h3>Add priority:</h3>
-    <form action="{% url 'add_priority' %}" method="post">
-        {% csrf_token %}
-        {{ priority_form.as_p }}
-        <input type="submit" value="Submit"/>
-    </form>
+    {% if errors %}
+        <div>
+        {% for key, value in errors.items %}
+            <li>{{ value }}</li>
+        {% endfor %}
+        </div>
+    {% endif %}
+    <div><a href="{% url 'registration' %}">Register now!</a></div>
 
 {% endblock %}
