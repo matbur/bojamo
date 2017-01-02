@@ -47,11 +47,17 @@ class Project(models.Model):
     repository = models.CharField(max_length=80)
     url = models.CharField(max_length=80)
 
+    def __str__(self):
+        return self.name
+
 
 class UserProject(models.Model):
     user = models.ForeignKey(User)
     project = models.ForeignKey(Project)
     permissions = models.PositiveSmallIntegerField()
+
+    def __str__(self):
+        return '({}, {})'.format(self.user.username, self.group)
 
     class Meta:
         unique_together = ['user', 'project']
@@ -90,16 +96,22 @@ class Priority(models.Model):
 class Task(models.Model):
     project = models.ForeignKey(Project)
     name = models.CharField(max_length=50)
-    time = models.PositiveIntegerField(default=timezone.now)
+    time = models.PositiveIntegerField(default=14)
     description = models.TextField(blank=True, null=True)
     status = models.ForeignKey(Status)
     reporter = models.ForeignKey(User)
     priority = models.ForeignKey(Priority)
 
+    def __str__(self):
+        return self.name
+
 
 class UserTask(models.Model):
     user = models.ForeignKey(User)
     task = models.ForeignKey(Task)
+
+    def __str__(self):
+        return '({}, {})'.format(self.user.username, self.task)
 
     class Meta:
         unique_together = ['user', 'task']
@@ -114,6 +126,9 @@ class Comment(models.Model):
 class UserComment(models.Model):
     user = models.ForeignKey(User)
     comment = models.ForeignKey(Comment)
+
+    def __str__(self):
+        return '({}, {})'.format(self.user.username, self.comment)
 
     class Meta:
         unique_together = ['user', 'comment']
@@ -131,3 +146,6 @@ class SprintTask(models.Model):
     sprint = models.ForeignKey(Sprint)
     task = models.ForeignKey(Task)
     time = models.IntegerField()
+
+    def __str__(self):
+        return '({}, {})'.format(self.user.username, self.task)
