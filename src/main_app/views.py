@@ -1,18 +1,18 @@
-from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
-from .forms import PriorityForm, StatusForm, UserForm, UserRegistrationForm, LoginForm
+from .forms import LoginForm, PriorityForm, StatusForm, UserForm, UserRegistrationForm
 from .models import Group, Project, User, UserGroup, UserProject, UserTask
 
 
 def index(request):
     context = {
         'login_form': LoginForm(),
-        #'status_form': StatusForm(),
-        #'priority_form': PriorityForm(),
+        # 'status_form': StatusForm(),
+        # 'priority_form': PriorityForm(),
     }
     return render(request, 'main_app/index.html', context)
+
 
 def get_users(request):
     users = User.objects.all()
@@ -97,6 +97,7 @@ def registration(request):
     }
     return render(request, 'main_app/registration.html', context)
 
+
 def user_login(request):
     context = {
         'login_form': LoginForm(),
@@ -110,7 +111,7 @@ def user_login(request):
             return dashboard(request)
         else:
             print('User verification unsuccessful')
-            context['errors']=form.errors
+            context['errors'] = form.errors
         return render(request, 'main_app/index.html', context)
 
 
@@ -118,9 +119,9 @@ def dashboard(request):
     print('dashboard')
     username = request.session.get('username', None)
     if not username:
-        context = { 'authorization':'Authorization error! You have to be logged in!'}
+        context = {'authorization': 'Authorization error! You have to be logged in!'}
         return render(request, 'main_app/dashboard.html', context)
-    context ={ 'welcome' : 'Welcome in bojamo project!'+username}
+    context = {'welcome': 'Welcome in bojamo project!' + username}
     user = get_object_or_404(User.objects, username=username)
     context['groups_member'] = [i.group for i in UserGroup.objects.filter(user=user)]
     context['user_projects'] = [i.project for i in UserProject.objects.filter(user=user)]
@@ -129,7 +130,7 @@ def dashboard(request):
 
 
 def user_registration(request):
-    context = { 'user_registration_form': UserRegistrationForm()}
+    context = {'user_registration_form': UserRegistrationForm()}
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
 
@@ -139,7 +140,7 @@ def user_registration(request):
             form.save()
         else:
             print('User verification unsuccessful')
-            context['errors']=form.errors
+            context['errors'] = form.errors
         return render(request, 'main_app/registration.html', context)
 
 
