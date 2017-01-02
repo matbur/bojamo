@@ -1,0 +1,25 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>react_app</title>
+
+</head>
+<body>
+
+<img src="{% static 'ja.jpeg' %}" alt="ja">
+
+{% block content %}
+{% endblock %}
+
+<script src="https://unpkg.com/react@15.4.0/dist/react.js"></script>
+<script src="https://unpkg.com/react-dom@15.4.0/dist/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-router/4.0.0-0/react-router.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.0/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+<script type="text/babel" src="{% static 'app.js' %}"></script>
+</body>
+</html>

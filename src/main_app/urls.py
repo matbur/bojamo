@@ -31,6 +31,13 @@ urlpatterns = [
     url(r'add_status$', views.add_status, name='add_status'),
     url(r'add_priority$', views.add_priority, name='add_priority'),
 
-
     url(r'^projects$', views.get_projects, name='projects'),
+
+    # url(r'^api$', views.api, name='api'),
+    # url(r'^api/(\w+)$', views.api, name='api2'),
+
+    url(r'^api/user$', views.api_user, name='api_user'),
+    url(r'^api/group$', views.api_group, name='api_group'),
+    url(r'^api/project$', views.api_project, name='api_project'),
+    url(r'^api/login$', views.api_login, name='api_login'),
 ]

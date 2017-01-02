@@ -8,7 +8,7 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'email',
                   'username', 'password',
-                 'permissions', 'url', 'description', 'active']
+                  'permissions', 'url', 'description', 'active']
         widgets = {'password': forms.PasswordInput()}
 
 
@@ -26,11 +26,11 @@ class UserRegistrationForm(forms.ModelForm):
         if form['password'] != form['repeat_password']:
             self.errors['password'] = 'Repeated password is invalid!'
         if User.objects.filter(email=form['email']):
-            self.errors['email'] = 'This email adress is in use!'
+            self.errors['email'] = 'This email address is in use!'
         if User.objects.filter(username=form['username']):
             self.errors['login'] = 'This login already exists!'
         if len(self.errors) == 0:
-            self._success="Registration successfull!"
+            self._success = "Registration successful!"
         return self.cleaned_data
 
 
@@ -50,6 +50,7 @@ class StatusForm(forms.ModelForm):
     class Meta:
         model = Status
         fields = ['name']
+
 
 class PriorityForm(forms.ModelForm):
     class Meta:

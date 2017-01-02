@@ -1,18 +1,18 @@
-from django.core.mail import send_mail
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 
-from .forms import PriorityForm, StatusForm, UserForm, UserRegistrationForm, LoginForm
+from .forms import LoginForm, PriorityForm, StatusForm, UserForm, UserRegistrationForm
 from .models import Group, Project, User, UserGroup, UserProject, UserTask
 
 
 def index(request):
     context = {
         'login_form': LoginForm(),
-        #'status_form': StatusForm(),
-        #'priority_form': PriorityForm(),
+        # 'status_form': StatusForm(),
+        # 'priority_form': PriorityForm(),
     }
     return render(request, 'main_app/index.html', context)
+
 
 def get_users(request):
     users = User.objects.all()
@@ -97,6 +97,7 @@ def registration(request):
     }
     return render(request, 'main_app/registration.html', context)
 
+
 def user_login(request):
     context = {
         'login_form': LoginForm(),
@@ -105,15 +106,31 @@ def user_login(request):
         form = LoginForm(data=request.POST)
 
         if form.is_valid():
+            request.session['username'] = str(form['username'].value())
             print('User verification successful')
+            return dashboard(request)
         else:
             print('User verification unsuccessful')
-            context['errors']=form.errors
+            context['errors'] = form.errors
         return render(request, 'main_app/index.html', context)
 
 
+def dashboard(request):
+    print('dashboard')
+    username = request.session.get('username', None)
+    if not username:
+        context = {'authorization': 'Authorization error! You have to be logged in!'}
+        return render(request, 'main_app/dashboard.html', context)
+    context = {'welcome': 'Welcome in bojamo project!' + username}
+    user = get_object_or_404(User.objects, username=username)
+    context['groups_member'] = [i.group for i in UserGroup.objects.filter(user=user)]
+    context['user_projects'] = [i.project for i in UserProject.objects.filter(user=user)]
+    context['user_tasks'] = UserTask.objects.filter(user=user)
+    return render(request, 'main_app/dashboard.html', context)
+
+
 def user_registration(request):
-    context = { 'user_registration_form': UserRegistrationForm()}
+    context = {'user_registration_form': UserRegistrationForm()}
     if request.method == 'POST':
         form = UserRegistrationForm(data=request.POST)
 
@@ -123,7 +140,7 @@ def user_registration(request):
             form.save()
         else:
             print('User verification unsuccessful')
-            context['errors']=form.errors
+            context['errors'] = form.errors
         return render(request, 'main_app/registration.html', context)
 
 
@@ -151,3 +168,65 @@ def add_priority(request):
             print('priority not valid')
 
         return HttpResponseRedirect('/')
+
+
+from django.core.serializers import serialize
+
+
+def api(request, what='user'):
+    class_map = {
+        'user': User,
+        'group': Group,
+    }
+
+    if request.method != 'GET':
+        return HttpResponse('get only')
+
+    print(request)
+    print(dir(request))
+    print(request.is_ajax())
+    print(request.GET)
+    d = dict(request.GET)
+    print('d', d)
+    for k, v in d.items():
+        d[k] = v[0]
+    print('d', d)
+    query = class_map[what].objects.filter(**d)
+    data = serialize('json', query)
+    return HttpResponse(data, content_type='application/json')
+    # return HttpResponse(what + data)
+
+
+def api_user(request):
+    d = {k: v[0] for k, v in dict(request.GET).items()}
+    print('user', d)
+    query = User.objects.filter(**d)
+    data = serialize('json', query)
+    return HttpResponse(data, content_type='application/json')
+
+
+def api_group(request):
+    d = {k: v[0] for k, v in dict(request.GET).items()}
+    print('group', d)
+    query = Group.objects.filter(**d)
+    data = serialize('json', query)
+    return HttpResponse(data, content_type='application/json')
+
+
+def api_project(request):
+    d = {k: v[0] for k, v in dict(request.GET).items()}
+    print('project', d)
+    query = Project.objects.filter(**d)
+    data = serialize('json', query)
+    return HttpResponse(data, content_type='application/json')
+
+
+import json
+
+
+def api_login(request):
+    d = {k: v[0] for k, v in dict(request.GET).items()}
+    print('login', d)
+    query = User.objects.filter(**d)
+    data = json.dumps({'status': bool(query)})
+    return HttpResponse(data, content_type='application/json')
