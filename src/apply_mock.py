@@ -28,7 +28,7 @@ def mock_group():
     with open('mock_group.json') as f:
         for mock in json.load(f):
             owner = User.objects.get(pk=mock.pop('owner'))
-            name = re.sub('\W', '', mock.pop('name'))
+            name = re.sub('\W', '', mock.pop('name'))[:50]
             try:
                 Group(owner=owner, name=name, **mock).save()
             except IntegrityError as err:
