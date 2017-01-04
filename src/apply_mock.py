@@ -12,14 +12,24 @@ import django
 
 django.setup()
 
-from main_app.models import *
-
+from user_profile.models import User, UserProfile
+from group.models import Group, UserGroup
+from task.models import Status, Priority, Task
+from project.models import Project
 
 def mock_user():
     with open('mock_user.json') as f:
         for mock in json.load(f):
             try:
-                User(**mock).save()
+                mock.pop('permissions')
+                mock['is_active'] = mock.pop('active')
+                data = {
+                    'description': mock.pop('description'),
+                    'url': mock.pop('url')
+                }
+                user = User(**mock)
+                user.save()
+                UserProfile(user=user, **data).save()
             except IntegrityError as err:
                 print(err, mock)
 
