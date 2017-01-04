@@ -1,0 +1,20 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+    <h1>bojamo</h1>
+
+    <form action="{% url 'user_login' %}" method="post">
+    {% csrf_token %}
+        {{ login_form.as_p }}
+        <input type="submit" value="Submit"/>
+    </form>
+    {% if errors %}
+        <div>
+        {% for key, value in errors.items %}
+            <li>{{ value }}</li>
+        {% endfor %}
+        </div>
+    {% endif %}
+    <div><a href="{% url 'registration' %}">Register now!</a></div>
+
+{% endblock %}

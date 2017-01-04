@@ -11,7 +11,7 @@ def index(request):
         # 'status_form': StatusForm(),
         # 'priority_form': PriorityForm(),
     }
-    return render(request, 'main_app/index.html', context)
+    return render(request, 'main_app/index.html')#, context)
 
 
 def get_users(request):
@@ -102,30 +102,32 @@ def user_login(request):
     context = {
         'login_form': LoginForm(),
     }
+    request.session['user_id'] = None
     if request.method == 'POST':
         form = LoginForm(data=request.POST)
 
         if form.is_valid():
-            request.session['username'] = str(form['username'].value())
+            print(form['username'])
+            user = get_object_or_404(User.objects, username=str(form['username'].value()))
+            request.session['user_id'] = user.id
             print('User verification successful')
             return dashboard(request)
         else:
             print('User verification unsuccessful')
             context['errors'] = form.errors
-        return render(request, 'main_app/index.html', context)
+    return render(request, 'main_app/user_login.html', context)
 
 
 def dashboard(request):
     print('dashboard')
-    username = request.session.get('username', None)
-    if not username:
+    user_id = request.session.get('user_id', None)
+    if not user_id:
         context = {'authorization': 'Authorization error! You have to be logged in!'}
         return render(request, 'main_app/dashboard.html', context)
-    context = {'welcome': 'Welcome in bojamo project!' + username}
-    user = get_object_or_404(User.objects, username=username)
-    context['groups_member'] = [i.group for i in UserGroup.objects.filter(user=user)]
-    context['user_projects'] = [i.project for i in UserProject.objects.filter(user=user)]
-    context['user_tasks'] = UserTask.objects.filter(user=user)
+    context = {'welcome': 'Welcome in bojamo project!' +str(user_id)}
+    context['groups_member'] = [i.group for i in UserGroup.objects.filter(id=user_id)]
+    context['user_projects'] = [i.project for i in UserProject.objects.filter(id=user_id)]
+    context['user_tasks'] = UserTask.objects.filter(id=user_id)
     return render(request, 'main_app/dashboard.html', context)
 
 

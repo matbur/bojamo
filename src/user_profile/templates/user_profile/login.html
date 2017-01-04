@@ -10,29 +10,24 @@
     <div class="container">
         <form id="form-signin" class="form-signin" action="{% url 'login' %}?next={{ next }}" method="post">
             {% csrf_token %}
-            <h2 class="form-signin-heading">Logowanie</h2>
-            <label for="username" class="sr-only">Login</label>
+            <h2 class="form-signin-heading">Welcome to Bojamo</h2>
+            <label for="username" class="sr-only">Username</label>
             <input type="text" name="username" value="" id="username" class="form-control"
-                   placeholder="Login" autofocus>
-            <label for="password" class="sr-only">Hasło</label>
+                   placeholder="Username" autofocus>
+            <label for="password" class="sr-only">Password</label>
             <input type="password" name="password" value="" id="password" class="form-control"
-                   placeholder="Hasło">
+                   placeholder="Password">
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj się</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
 
             <br>
             <br>
-
-            {{ messages }}
 
             {% if messages %}
-
                 {% for message in messages %}
-                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
                         <div class="alert alert-danger" role="alert">
-                            <strong>Błąd!</strong> {{ message }}
+                            <strong>Error!</strong> {{ message }}
                         </div>
-                    {% endif %}
                 {% endfor %}
             {% endif %}
         </form>
