@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form id="form-signin" class="form-signin" action="{% url 'login' %}?next={{ next }}" method="post">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Logowanie</h2>
+            <label for="username" class="sr-only">Login</label>
+            <input type="text" name="username" value="" id="username" class="form-control"
+                   placeholder="Login" autofocus>
+            <label for="password" class="sr-only">Hasło</label>
+            <input type="password" name="password" value="" id="password" class="form-control"
+                   placeholder="Hasło">
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Zaloguj się</button>
+
+            <br>
+            <br>
+
+            {{ messages }}
+
+            {% if messages %}
+
+                {% for message in messages %}
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Błąd!</strong> {{ message }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}
