@@ -4,10 +4,32 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.messages import get_messages
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.template.context_processors import csrf
 from django.utils.http import is_safe_url
-from group.models import Group
+from group.models import UserGroup
+from project.models import UserProject
+from django.views.generic import CreateView, ListView, DetailView
+
+
+@login_required
+def user_detail(request, username):
+    context = {}
+
+    user = get_object_or_404(User, username=username)
+    context['get_user'] = user
+    userGroups = UserGroup.objects.filter(user=user)
+    context['groupProjects'] = {}
+    for userGroup in userGroups:
+        projects = UserProject.objects.filter(user=user, project__group=userGroup.group)
+        if projects:
+            context['groupProjects'].update({userGroup.group.name: projects})
+        else:
+            context['groupProjects'].update({userGroup.group.name: '-'})
+    return render_to_response(
+        'user_profile/user_detail.html',
+        context
+    )
 
 
 def login(request):

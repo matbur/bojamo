@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><a href="{% url 'user_detail' get_user.username %}">{{ get_user.username }}</a>'s profile</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Username</th>
+                    <th>{{ get_user.username }}</th>
+                </tr>
+                <tr>
+                    <th>First name</th>
+                    <th>{{ get_user.first_name }}</th>
+                </tr>
+                <tr>
+                    <th>Last name</th>
+                    <th>{{ get_user.last_name }}</th>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <th>{{ get_user.email }}</th>
+                </tr>
+                <tr>
+                    <th>Website</th>
+                    <th><a href="{{ get_user.userprofile.url }}">{{ get_user.userprofile.url }}</a></th>
+                </tr>
+                <tr>
+                    <th>About me</th>
+                    <th>{{ get_user.userprofile.description }}</th>
+                </tr>
+            </tbody>
+        </table>
+            <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th><a href="{% url 'user_detail' get_user.username %}">{{ get_user.username }}</a>'s groups & projects</th>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th>Groups</th>
+                    <th>Projects</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if groupProjects %}
+                {% for key, value in groupProjects.items %}
+                    <tr>
+                        <th>{{ key }}</th>
+                        <th>
+                            {% for pro in value %}
+                                <div>{{ pro.project.name }}</div>
+                            {% endfor %}
+                        </th>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            </tbody>
+
+        </table>
+
+    </div>
+{% endblock %}
