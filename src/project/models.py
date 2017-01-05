@@ -6,6 +6,7 @@ from group.models import Group
 
 class Project(models.Model):
     group = models.ForeignKey(Group)
+    owner = models.ForeignKey(User)
     name = models.CharField(max_length=100, unique=True)
     description = models.TextField(blank=True, null=True)
     date = models.DateField(auto_now=True)
