@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form id="form-signin" class="form-signin" action="{% url 'registration' %}?next={{ next }}" method="post">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Fill all fields</h2>
+            <label for="first_name" class="sr-only">First name</label>
+            <input type="text" name="first_name" value="" id="frist_name" class="form-control"
+                   placeholder="First name" autofocus>
+            <label for="last_name" class="sr-only">Last name</label>
+            <input type="text" name="last_name" value="" id="last_name" class="form-control"
+                   placeholder="Last name" autofocus>
+            <input type="email" name="email" value="" id="email" class="form-control"
+                   placeholder="Email" autofocus>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" name="username" value="" id="username" class="form-control"
+                   placeholder="Username" autofocus>
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" value="" id="password" class="form-control"
+                   placeholder="Password">
+            <label for="conirm_password" class="sr-only">Confirm password</label>
+            <input type="password" name="confirm_password" value="" id="password" class="form-control"
+                   placeholder="Confirm password">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+
+            <br>
+            <br>
+
+            {% if messages %}
+                {% for message in messages %}
+                        <div class="alert alert-danger" role="alert">
+                            <strong>Error!</strong> {{ message }}
+                        </div>
+                {% endfor %}
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

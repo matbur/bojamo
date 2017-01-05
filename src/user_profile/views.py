@@ -1,4 +1,5 @@
 from django.contrib import auth, messages
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import get_messages
 from django.core.urlresolvers import reverse_lazy
@@ -6,25 +7,16 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render_to_response
 from django.template.context_processors import csrf
 from django.utils.http import is_safe_url
+from group.models import Group
 
 
 def login(request):
-    messagealert = []
-    mess = get_messages(request)
-
-    for message in mess:
-        print(message)
-        messagealert.append(message)
 
     if request.user.is_authenticated():
         return HttpResponseRedirect(reverse_lazy('loggedin'))
 
-    #args = {
-    #    'next': request.GET.get('next', '') if request.GET else ''
-    #}
-
     context = {
-        'messages' : []
+        'messages': []
     }
 
     if request.POST:
@@ -47,6 +39,57 @@ def login(request):
         context
     )
 
+
+def registration(request):
+    ###TODO filtr fields if they contain default values!!!
+
+    context = {
+        'messages': []
+    }
+    form = {}
+
+    if request.POST:
+        form['first_name'] = request.POST.get('first_name', None)
+        form['last_name'] = request.POST.get('last_name', None)
+        form['email'] = request.POST.get('email', None)
+        form['username'] = request.POST.get('username', None)
+        form['password'] = request.POST.get('password', None)
+        form['confirm_password'] = request.POST.get('confirm_password', None)
+
+        user = User.objects.filter(username=form['username'])
+        email = User.objects.filter(email=form['email'])
+
+
+        context.update(csrf(request))
+        for key, value in form.items():
+            if value is None:
+                context['messages'].append('Please fill all fields')
+                context.update(csrf(request))
+                return render_to_response(
+                    'user_profile/registration.html',
+                    context
+                )
+
+        if user:
+            context['messages'].append('This username already exitsts!')
+        elif email:
+            context['messages'].append('This email is in use!')
+        elif form['password'] != form['confirm_password']:
+            context['messages'].append('Password is invalid!')
+        else:
+            user = User.objects.create_user(first_name=form['first_name'],
+                           last_name=form['last_name'],
+                           email=form['email'],
+                           username=form['username'],
+                           password=form['password']
+                           )
+            auth.login(request, user)
+            return HttpResponseRedirect(reverse_lazy('loggedin'))
+    context.update(csrf(request))
+    return render_to_response(
+        'user_profile/registration.html',
+        context
+    )
 
 @login_required
 def loggedin(request):
