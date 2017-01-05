@@ -57,14 +57,25 @@
             {% if groupProjects %}
                 {% for key, value in groupProjects.items %}
                     <tr>
-                        <th>{{ key }}</th>
+                        <th><{{ key }}</th>
                         <th>
+                        {% if value %}
                             {% for pro in value %}
-                                <div>{{ pro.project.name }}</div>
+                                <div>
+                                    {{ pro.project.name }}
+                                </div>
                             {% endfor %}
+                        {% else %}
+                            -
+                        {% endif %}
                         </th>
                     </tr>
                 {% endfor %}
+            {% else %}
+                <tr>
+                    <th>-</th>
+                    <th>-</th>
+                </tr>
             {% endif %}
             </tbody>
 

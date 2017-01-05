@@ -25,7 +25,7 @@ def user_detail(request, username):
         if projects:
             context['groupProjects'].update({userGroup.group.name: projects})
         else:
-            context['groupProjects'].update({userGroup.group.name: '-'})
+            context['groupProjects'].update({userGroup.group.name:  None})
     return render_to_response(
         'user_profile/user_detail.html',
         context
