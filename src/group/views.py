@@ -7,7 +7,7 @@ from .forms import GroupForm
 class GroupCreateView(CreateView):
     model = Group
     form_class = GroupForm
-    template_name = 'group/create_template.html'
+    template_name = 'group/create_view.html'
     success_url = 'users_profile/loggedin.html'
 
     def get_context_data(self, **kwargs):
