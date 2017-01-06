@@ -31,7 +31,7 @@ def user_detail(request, username):
 
 def login(request):
     if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse_lazy('loggedin'))
+        return HttpResponseRedirect(reverse_lazy('dashboard'))
 
     context = {
         'messages': []
@@ -45,7 +45,7 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth.login(request, user)
-                return HttpResponseRedirect(reverse_lazy('loggedin'))
+                return HttpResponseRedirect(reverse_lazy('dashboard'))
             else:
                 context['messages'].append('User is inactive!')
         else:
