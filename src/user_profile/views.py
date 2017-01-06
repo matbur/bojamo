@@ -12,6 +12,7 @@ from project.models import UserProject
 
 @login_required
 def user_detail(request, username):
+    # TODO: display groups which belongs to this user
     context = {}
 
     user = get_object_or_404(User, username=username)

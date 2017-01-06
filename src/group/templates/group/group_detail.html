@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><a href="{% url 'group_detail' group.name %}">{{ group.name }}</a>'s detail</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Name</th>
+                <th>{{ group.name }}</th>
+            </tr>
+            <tr>
+                <th>Owner</th>
+                <th><a href="{% url 'user_detail' owner.username %}">{{ owner }}</a></th>
+            </tr>
+            <tr>
+                <th>Members</th>
+                <th>
+                    {% for member in members %}
+                        {% if forloop.last %}
+                            <a href="{% url 'user_detail' member.username %}">{{ member }}</a>
+                        {% else %}
+                            <a href="{% url 'user_detail' member.username %}">{{ member }}</a>,
+                        {% endif %}
+                    {% endfor %}
+
+                </th>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <th>{{ group.date }}</th>
+            </tr>
+            <tr>
+                <th>About this group</th>
+                <th>
+                    {% if group.description %}
+                        {{ group.description }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </th>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

@@ -57,7 +57,7 @@
             {% if groupProjects %}
                 {% for key, value in groupProjects.items %}
                     <tr>
-                        <th>{{ key }}</th>
+                        <th><a href="{% url 'group_detail' key %}">{{ key }}</a></th>
                         <th>
                         {% if value %}
                             {% for pro in value %}

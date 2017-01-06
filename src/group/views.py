@@ -1,7 +1,10 @@
-from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView, ListView
-from .models import Group
+
 from .forms import GroupForm
+from .models import Group, UserGroup
 
 
 class GroupCreateView(CreateView):
@@ -18,3 +21,12 @@ class GroupCreateView(CreateView):
 
 class GroupListView(ListView):
     model = Group
+
+
+@login_required
+def group_detail(request, name):
+    group = get_object_or_404(Group, name=name)
+    owner = User.objects.get(id=group.owner_id)
+    members = [i.user for i in UserGroup.objects.filter(group=group)]
+    context = {'group': group, 'owner': owner, 'members': members}
+    return render(request, 'group/group_detail.html', context)
