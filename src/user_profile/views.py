@@ -12,7 +12,6 @@ from project.models import UserProject
 
 @login_required
 def user_detail(request, username):
-    # TODO: display groups which belongs to this user
     context = {}
 
     user = get_object_or_404(User, username=username)
@@ -115,7 +114,16 @@ def registration(request):
 
 @login_required
 def loggedin(request):
+    context = {}
+
+    user_groups = UserGroup.objects.filter(user=request.user)
+    context['groupProjects'] = {}
+    for user_group in user_groups:
+        projects = UserProject.objects.filter(user=request.user, project__group=user_group.group)
+        context['groupProjects'][user_group.group.name] = projects or None
+
     return render(
         request,
-        'user_profile/loggedin.html'
+        'user_profile/loggedin.html',
+        context
     )

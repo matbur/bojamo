@@ -1,4 +1,44 @@
 {% extends "base.html" %}
 
+{% block head %}
+    <title>{{ user.name }}</title>
+{% endblock %}
+
 {% block body %}
+    <div class="container">
+     <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Groups <a href="{% url 'group_create_view' %}"><span class="glyphicon glyphicon-plus"></span></a></th>
+                    <th>Projects</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if groupProjects %}
+                {% for key, value in groupProjects.items %}
+                    <tr>
+                        <th><a href="{% url 'group_detail' key %}">{{ key }}</a></th>
+                        <th>
+                        {% if value %}
+                            {% for pro in value %}
+                                <div>
+                                    {{ pro.project.name }}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            -
+                        {% endif %}
+                        </th>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <th>-</th>
+                    <th>-</th>
+                </tr>
+            {% endif %}
+            </tbody>
+
+        </table>
+    </div>
 {% endblock %}
