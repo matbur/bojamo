@@ -4,6 +4,7 @@
 {% block head %}
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+    <title>{{ group.name }}</title>
 {% endblock %}
 
 {% block body %}
@@ -33,7 +34,6 @@
                             <a href="{% url 'user_detail' member.username %}">{{ member }}</a>,
                         {% endif %}
                     {% endfor %}
-
                 </th>
             </tr>
             <tr>
@@ -45,6 +45,18 @@
                 <th>
                     {% if group.description %}
                         {{ group.description }}
+                    {% else %}
+                        -
+                    {% endif %}
+                </th>
+            </tr>
+            <tr>
+                <th>Project <a href="{% url 'project_create_view' group.name  %}"><span class="glyphicon glyphicon-plus"></span></a></th>
+                <th>
+                    {% if projects %}
+                        {% for project in projects %}
+                            <div>{{ project }}</div>
+                        {% endfor %}
                     {% else %}
                         -
                     {% endif %}

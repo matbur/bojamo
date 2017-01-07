@@ -2,19 +2,16 @@
 
 
 {% block body %}
-
-<form action="" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        {{ field.label_tag }}
-        {{ field }}
-    {% endfor %}
-    <input type="submit" value="Send message" />
-</form>
-
-
-    {% for el in testowa_zmienna %}
-        {{ el }}
-    {% endfor %}
+<div class="container">
+    <form action="" method="post">
+        <h2 class="form-signin-heading">Create new group</h2>
+        {% csrf_token %}
+        {% for field in form %}
+            {{ field.label_tag }}
+            {{ field }}
+        {% endfor %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Add Group</button>
+    </form>
+</div>
 
 {% endblock %}

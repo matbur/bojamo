@@ -5,16 +5,11 @@ from .models import Group
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
-        fields = '__all__'
+        fields = {'name', 'description'}
         widgets = {
-            'owner': forms.Select(
-                attrs={
-                    'class': 'form-control'
-                }
-            ),
             'name': forms.TextInput(
                 attrs={
-                    'class': 'form-control'
+                    'class': 'form-control',
                 }
             ),
             'description': forms.Textarea(
