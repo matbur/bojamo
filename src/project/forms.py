@@ -7,12 +7,17 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = {'name', 'url', 'repository', 'description'}
         widgets = {
-            'owner': forms.Select(
+            'name': forms.TextInput(
                 attrs={
                     'class': 'form-control'
                 }
             ),
-            'name': forms.TextInput(
+            'url': forms.TextInput(
+                attrs={
+                    'class': 'form-control'
+                }
+            ),
+            'repository': forms.TextInput(
                 attrs={
                     'class': 'form-control'
                 }
