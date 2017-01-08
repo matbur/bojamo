@@ -17,6 +17,7 @@ from group.models import Group, UserGroup
 from task.models import Status, Priority, Task
 from project.models import Project
 
+
 def mock_user():
     with open('mock_user.json') as f:
         for mock in json.load(f):
@@ -79,7 +80,8 @@ def mock_project():
         for mock in json.load(f):
             try:
                 group = Group.objects.get(id=mock.pop('group'))
-                Project(group=group, **mock).save()
+                owner = User.objects.get(id=mock.pop('owner'))
+                Project(owner=owner, group=group, **mock).save()
             except IntegrityError as err:
                 print(err, mock)
 
