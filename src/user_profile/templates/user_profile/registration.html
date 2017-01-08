@@ -1,6 +1,10 @@
 {% extends "base_login.html" %}
 {% load staticfiles %}
 
+{% block title %}
+    - signup
+{% endblock %}
+
 {% block head %}
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/signin.css' %}" rel="stylesheet">
@@ -35,9 +39,9 @@
 
             {% if messages %}
                 {% for message in messages %}
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Error!</strong> {{ message }}
-                        </div>
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Error!</strong> {{ message }}
+                    </div>
                 {% endfor %}
             {% endif %}
         </form>

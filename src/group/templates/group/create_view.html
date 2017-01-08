@@ -1,17 +1,20 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    - new group
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <form action="" method="post">
-        <h2 class="form-signin-heading">Create new group</h2>
-        {% csrf_token %}
-        {% for field in form %}
-            {{ field.label_tag }}
-            {{ field }}
-        {% endfor %}
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Add Group</button>
-    </form>
-</div>
+    <div class="container">
+        <form action="" method="post">
+            <h2 class="form-signin-heading">Create new group</h2>
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field }}
+            {% endfor %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Add Group</button>
+        </form>
+    </div>
 
 {% endblock %}

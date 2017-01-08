@@ -6,6 +6,10 @@
     <link href="{% static 'css/signin.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block title %}
+    - login
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <form id="form-signin" class="form-signin" action="{% url 'login' %}?next={{ next }}" method="post">
@@ -25,9 +29,9 @@
 
             {% if messages %}
                 {% for message in messages %}
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Error!</strong> {{ message }}
-                        </div>
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Error!</strong> {{ message }}
+                    </div>
                 {% endfor %}
             {% endif %}
         </form>

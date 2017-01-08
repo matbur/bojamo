@@ -4,7 +4,10 @@
 {% block head %}
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/signin.css' %}" rel="stylesheet">
-    <title>{{ group.name }}</title>
+{% endblock %}
+
+{% block title %}
+    - {{ group.name }}
 {% endblock %}
 
 {% block body %}
@@ -51,7 +54,8 @@
                 </th>
             </tr>
             <tr>
-                <th>Project <a href="{% url 'project_create_view' group.name  %}"><span class="glyphicon glyphicon-plus"></span></a></th>
+                <th>Project <a href="{% url 'project_create_view' group.name %}"><span
+                        class="glyphicon glyphicon-plus"></span></a></th>
                 <th>
                     {% if projects %}
                         {% for project in projects %}

@@ -4,7 +4,10 @@
 {% block head %}
     <!-- Bootstrap core CSS -->
     <link href="{% static 'css/signin.css' %}" rel="stylesheet">
-    <title>{{ project.name }}</title>
+{% endblock %}
+
+{% block title %}
+    - {{ project.name }}
 {% endblock %}
 
 {% block body %}
