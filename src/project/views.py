@@ -18,6 +18,7 @@ class ProjectCreateView(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['group'] = Group.objects.get(name=self.kwargs['group'])
         return context
 
     def form_valid(self, form):

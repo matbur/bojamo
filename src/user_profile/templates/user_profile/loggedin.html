@@ -1,18 +1,17 @@
 {% extends "base.html" %}
 
-{% block title %}
-    - {{ user.username }}'s dashboard
+{% block head %}
+    <title>{{ user.name }}</title>
 {% endblock %}
 
 {% block body %}
     <div class="container">
-        <table class="table table-striped">
+     <table class="table table-striped">
             <thead>
-            <tr>
-                <th>Groups <a href="{% url 'group_create_view' %}"><span class="glyphicon glyphicon-plus"></span></a>
-                </th>
-                <th>Projects</th>
-            </tr>
+                <tr>
+                    <th>Groups <a href="{% url 'group_create_view' %}"><span class="glyphicon glyphicon-plus"></span></a></th>
+                    <th>Projects</th>
+                </tr>
             </thead>
             <tbody>
             {% if groupProjects %}
@@ -20,15 +19,18 @@
                     <tr>
                         <th><a href="{% url 'group_detail' key %}">{{ key }}</a></th>
                         <th>
-                            {% if value %}
-                                {% for pro in value %}
-                                    <div>
-                                        <a href="{% url 'project_detail' pro.project.name %}">{{ pro.project }}</a>
-                                    </div>
-                                {% endfor %}
-                            {% else %}
-                                -
-                            {% endif %}
+                        {% if value %}
+                            {% for pro in value %}
+                                <div>
+                                    <a href="{% url 'project_detail' pro.project.name %}">{{ pro.project }}</a>
+                                </div>
+                            {% endfor %}
+                            <div>
+                                <a href="{% url 'project_create_view' key  %}"><span class="glyphicon glyphicon-plus"></span></a>
+                            </div>
+                        {% else %}
+                            <a href="{% url 'project_create_view' key  %}"><span class="glyphicon glyphicon-plus"></span></a>
+                        {% endif %}
                         </th>
                     </tr>
                 {% endfor %}

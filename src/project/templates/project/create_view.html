@@ -7,7 +7,7 @@
 {% block body %}
     <div class="container">
         <form action="" method="post">
-            <h2 class="form-signin-heading">Add new project to {{ group }}</h2>
+            <h2 class="form-signin-heading">Add new project to {{ group.name }}</h2>
             {% csrf_token %}
             {% for field in form %}
                 {{ field.label_tag }}
