@@ -22,7 +22,7 @@
                         {% if value %}
                             {% for pro in value %}
                                 <div>
-                                    {{ pro.project.name }}
+                                    <a href="{% url 'project_detail' pro.project.name %}">{{ pro.project }}</a>
                                 </div>
                             {% endfor %}
                         {% else %}

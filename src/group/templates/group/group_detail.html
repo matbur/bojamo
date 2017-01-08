@@ -55,7 +55,7 @@
                 <th>
                     {% if projects %}
                         {% for project in projects %}
-                            <div>{{ project }}</div>
+                            <div><a href="{% url 'project_detail' project.name %}">{{ project }}</a></div>
                         {% endfor %}
                     {% else %}
                         -

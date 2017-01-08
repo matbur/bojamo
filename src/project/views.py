@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 
+from django.contrib.auth.models import User
 from group.models import Group
 from project.forms import ProjectForm
 from .models import Project, UserProject
@@ -30,3 +31,13 @@ class ProjectCreateView(CreateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         return super(ProjectCreateView, self).dispatch(*args, **kwargs)
+
+
+@login_required
+def project_detail(request, name):
+    project = get_object_or_404(Project, name=name)
+    group = Group.objects.get(id=project.group_id)
+    owner = User.objects.get(id=project.owner_id)
+    members = [i.user for i in UserProject.objects.filter(project=project)]
+    context = {'project': project, 'owner': owner, 'group': group, 'members': members }
+    return render(request, 'project/project_detail.html', context)
