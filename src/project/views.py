@@ -8,6 +8,7 @@ from django.views.generic import CreateView
 from django.contrib.auth.models import User
 from group.models import Group
 from project.forms import ProjectForm
+from sprint.models import Sprint
 from .models import Project, UserProject
 
 
@@ -40,5 +41,6 @@ def project_detail(request, name):
     group = Group.objects.get(id=project.group_id)
     owner = User.objects.get(id=project.owner_id)
     members = [i.user for i in UserProject.objects.filter(project=project)]
-    context = {'project': project, 'owner': owner, 'group': group, 'members': members }
+    sprints = Sprint.objects.filter(project=project)
+    context = {'project': project, 'owner': owner, 'group': group, 'members': members, 'sprints': sprints}
     return render(request, 'project/project_detail.html', context)

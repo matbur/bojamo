@@ -36,10 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user_profile',
+    'sprint',
     'group',
     'project',
     'task',
-    'sprint',
     'comment',
     'message'
 ]

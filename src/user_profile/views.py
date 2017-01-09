@@ -103,7 +103,7 @@ def registration(request):
                 password=form['password']
             )
             auth.login(request, user)
-            return HttpResponseRedirect(reverse_lazy('loggedin'))
+            return HttpResponseRedirect(reverse_lazy('dashboard'))
     context.update(csrf(request))
     return render(
         request,

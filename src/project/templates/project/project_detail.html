@@ -60,5 +60,46 @@
             </tbody>
         </table>
 
+        {% if user in members %}
+                <div style="overflow: auto;">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><a href="{% url 'project_detail' project.name %}">{{ project.name }}</a>'s sprints</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Sprint
+                                    <a href="{% url 'sprint_create_view' project.name %}">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </a>
+                                </th>
+                                <th>Begin</th>
+                                <th>End</th>
+                                <th>Active</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if sprints %}
+                                {% for sprint in sprints %}
+                                    <tr>
+                                        <td>{{ sprint.number }}</td>
+                                        <td>{{ sprint.begin }}</td>
+                                        <td>{{ sprint.end }}</td>
+                                        <td>{{ sprint.status }}</td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td>No active sprints</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+        {% endif %}
     </div>
 {% endblock %}
