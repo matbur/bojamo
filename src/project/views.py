@@ -1,15 +1,14 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView
 
-from django.contrib.auth.models import User
 from group.models import Group
 from project.forms import ProjectForm
 from sprint.models import Sprint, SprintTask
-from task.models import Task
 from .models import Project, UserProject
 
 
@@ -25,7 +24,9 @@ class ProjectCreateView(CreateView):
 
     def form_valid(self, form):
         group = Group.objects.get(name=self.kwargs['group'])
-        project = Project.objects.create(owner=self.request.user, group=group, url=form['url'].value(), repository=form['repository'].value(), name=form['name'].value(), description=form['description'].value())
+        project = Project.objects.create(owner=self.request.user, group=group, url=form['url'].value(),
+                                         repository=form['repository'].value(), name=form['name'].value(),
+                                         description=form['description'].value())
         print(project)
         UserProject.objects.create(user=self.request.user, project=project, permissions=9001)
         redirect_url = reverse_lazy('group_detail', args=[self.kwargs['group']])
@@ -43,8 +44,9 @@ def project_detail(request, name):
     owner = User.objects.get(id=project.owner_id)
     members = [i.user for i in UserProject.objects.filter(project=project)]
     sprints = Sprint.objects.filter(project=project)
-    sprint = Sprint.objects.get(project=project, status=True)
+    sprint = Sprint.objects.filter(project=project, status=True)
     sprinttask = SprintTask.objects.filter(sprint=sprint)
-    tasks = [ t.task for t in sprinttask]
-    context = {'project': project, 'owner': owner, 'group': group, 'members': members, 'sprints': sprints, 'tasks':tasks}
+    tasks = [t.task for t in sprinttask]
+    context = {'project': project, 'owner': owner, 'group': group, 'members': members, 'sprints': sprints,
+               'tasks': tasks}
     return render(request, 'project/project_detail.html', context)
