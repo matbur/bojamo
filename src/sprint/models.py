@@ -15,7 +15,5 @@ class Sprint(models.Model):
 class SprintTask(models.Model):
     sprint = models.ForeignKey(Sprint)
     task = models.ForeignKey(Task)
-    time = models.IntegerField()
+    time = models.IntegerField(blank=True, null=True)
 
-    def __str__(self):
-        return '({}, {})'.format(self.user.username, self.task)

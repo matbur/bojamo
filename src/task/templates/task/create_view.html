@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    - new task
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <form action="" method="post">
+            <h2 class="form-signin-heading">Add new task to {{ project.name }}</h2>
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field.label_tag }}
+                {{ field }}
+            {% endfor %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Add task to active sprint</button>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger"><strong>{{ message.tags }}!</strong> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}
