@@ -15,6 +15,11 @@
             {% endfor %}
             <button class="btn btn-lg btn-primary btn-block" type="submit">Add Sprint</button>
         </form>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger"><strong>{{ message.tags }}!</strong> {{ message }}</div>
+            {% endfor %}
+        {% endif %}
     </div>
 
 {% endblock %}

@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -25,7 +26,18 @@ class SprintCreateView(CreateView):
 
     def form_valid(self, form):
         project = Project.objects.get(name=self.kwargs['project'])
-        sprint = Sprint.objects.create(project=project, begin=form['begin'].value(), end=form['end'].value(), number=9001 ,status=True)
+        projectSprints = Sprint.objects.filter(project=project)
+        if projectSprints:
+            latest = projectSprints.latest('begin')
+            if not latest.status:
+                num=latest.number+1
+            else:
+                messages.add_message(self.request, messages.ERROR, 'Latest sprint is still active!')
+                context = {'form':SprintForm, 'project':project}
+                return render(self.request,'sprint/create_view.html', context )
+        else:
+            num=1
+        sprint = Sprint.objects.create(project=project, begin=form['begin'].value(), end=form['end'].value(), number=num ,status=True)
         print(sprint)
         redirect_url = reverse_lazy('project_detail', args=[self.kwargs['project']])
         return HttpResponseRedirect(redirect_url)
