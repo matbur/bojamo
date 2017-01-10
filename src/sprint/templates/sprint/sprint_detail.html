@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    - {{ project.name }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><a href="{% url 'sprint_detail_view' project.name sprint.id %}">{{ sprint.number }}</a>'s sprint
+                    detail
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Project</th>
+                <th><a href="{% url 'project_detail' project.name %}">{{ project.name }}</a></th>
+            </tr>
+            <tr>
+                <th>Begin</th>
+                <th>{{ sprint.begin }}</th>
+            </tr>
+            <tr>
+                <th>End</th>
+                <th>{{ sprint.end }}</th>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <th>{{ sprint.status }}</th>
+            </tr>
+            </tbody>
+        </table>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><a href="{% url 'sprint_detail_view' project.name sprint.id %}">{{ sprint.number }}</a>'s tasks
+                </th>
+            </tr>
+            <tr>
+                <th>
+                    Task
+                    <a href="{% url 'task_create_view' project.name %}">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </th>
+                <th>Time</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if tasks %}
+                {% for task in tasks %}
+                    <tr>
+                        <td><a href="{% url 'task_detail_view' project.name sprint.id task.id %}">{{ task.name }}</a>
+                        </td>
+                        <td>{{ task.time }}</td>
+                        <td>{{ task.description }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td>No active tasks</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

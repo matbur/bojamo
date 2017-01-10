@@ -69,81 +69,83 @@
         </table>
 
         {% if user in members %}
-                <div style="overflow: auto;">
-                    <table class="table table-striped">
-                        <thead>
+            <div style="overflow: auto;">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><a href="{% url 'project_detail' project.name %}">{{ project.name }}</a>'s sprints</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            Sprint
+                            <a href="{% url 'sprint_create_view' project.name %}">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </th>
+                        <th>Begin</th>
+                        <th>End</th>
+                        <th>Active</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if sprints %}
+                        {% for sprint in sprints %}
                             <tr>
-                                <th><a href="{% url 'project_detail' project.name %}">{{ project.name }}</a>'s sprints</th>
+                                <td>
+                                    <a href="{% url 'sprint_detail_view' project.name sprint.id %}">{{ sprint.number }}</a>
+                                </td>
+                                <td>{{ sprint.begin }}</td>
+                                <td>{{ sprint.end }}</td>
+                                <td>{{ sprint.status }}</td>
                             </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>No active sprints</td>
+                            <td>-</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <div style="overflow: auto;">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><a href="{% url 'project_detail' project.name %}">{{ project.name }}</a>'s active tasks</th>
+                    </tr>
+                    <tr>
+                        <th>
+                            Task
+                            <a href="{% url 'task_create_view' project.name %}">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </a>
+                        </th>
+                        <th>Time</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if tasks %}
+                        {% for task in tasks %}
                             <tr>
-                                <th>
-                                    Sprint
-                                    <a href="{% url 'sprint_create_view' project.name %}">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </a>
-                                </th>
-                                <th>Begin</th>
-                                <th>End</th>
-                                <th>Active</th>
+                                <td>{{ task.name }}</td>
+                                <td>{{ task.time }}</td>
+                                <td>{{ task.description }}</td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {% if sprints %}
-                                {% for sprint in sprints %}
-                                    <tr>
-                                        <td>{{ sprint.number }}</td>
-                                        <td>{{ sprint.begin }}</td>
-                                        <td>{{ sprint.end }}</td>
-                                        <td>{{ sprint.status }}</td>
-                                    </tr>
-                                {% endfor %}
-                            {% else %}
-                                <tr>
-                                    <td>No active sprints</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                            {% endif %}
-                        </tbody>
-                    </table>
-                </div>
-                <div style="overflow: auto;">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th><a href="{% url 'project_detail' project.name %}">{{ project.name }}</a>'s active tasks</th>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Task
-                                    <a href="{% url 'task_create_view' project.name %}">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </a>
-                                </th>
-                                <th>Time</th>
-                                <th>Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% if tasks %}
-                                {% for task in tasks %}
-                                    <tr>
-                                        <td>{{ task.name }}</td>
-                                        <td>{{ task.time }}</td>
-                                        <td>{{ task.description }}</td>
-                                    </tr>
-                                {% endfor %}
-                            {% else %}
-                                <tr>
-                                    <td>No active tasks</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                </tr>
-                            {% endif %}
-                        </tbody>
-                    </table>
-                </div>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td>No active tasks</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

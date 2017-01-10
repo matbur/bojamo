@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index_view'),
     url(r'', include(user_profile_urls)),
     url(r'^group/', include(group_urls)),
-    url(r'^project/', include(project_urls))
+    url(r'^project/', include(project_urls)),
 ]

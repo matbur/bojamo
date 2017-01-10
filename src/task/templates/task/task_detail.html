@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'css/signin.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}
+    - {{ project.name }}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th><a href="{% url 'task_detail_view' project.name sprint.id task.id %}">{{ task.name }}</a>'s details
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Project</th>
+                <th><a href="{% url 'project_detail' project.name %}">{{ project.name }}</a></th>
+            </tr>
+            <tr>
+                <th>Sprint</th>
+                <th><a href="{% url 'sprint_detail_view' project.name sprint.id %}">{{ sprint.number }}</a></th>
+            </tr>
+            <tr>
+                <th>Reporter</th>
+                <th><a href="{% url 'user_detail' reporter.username %}">{{ reporter }}</a>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <th>{{ task.status }}</th>
+            </tr>
+            <tr>
+                <th>Time</th>
+                <th>{{ task.time }}</th>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <th>{{ task.description }}</th>
+            </tr>
+            <tr>
+                <th>Priority</th>
+                <th>{{ task.priority }}</th>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}
