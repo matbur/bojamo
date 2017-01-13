@@ -6,7 +6,7 @@
 
 {% block body %}
     <div class="container">
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
             <h2 class="form-signin-heading">Add new task to {{ project.name }}</h2>
             {% csrf_token %}
             {% for field in form %}

@@ -10,11 +10,11 @@ from django.views.generic import CreateView
 from project.models import Project
 from sprint.models import Sprint, SprintTask
 from task.forms import TaskForm
-from task.models import Priority, Status, Task
+from task.models import Task
 
 
 class TaskCreateView(CreateView):
-    model = Sprint
+    model = Task
     form_class = TaskForm
     template_name = 'task/create_view.html'
 
@@ -25,26 +25,20 @@ class TaskCreateView(CreateView):
 
     def form_valid(self, form):
         project = Project.objects.get(name=self.kwargs['project'])
-        if form['status'].value == 0:
-            messages.add_message(self.request, messages.ERROR, 'You need to select status!')
-            context = {'form': TaskForm, 'project': project}
-            return render(self.request, 'task/create_view.html', context)
-        status = Status.objects.get(id=int(form['status'].value()))
-        if form['priority'].value == 0:
-            messages.add_message(self.request, messages.ERROR, 'You need to select status!')
-            context = {'form': TaskForm, 'project': project}
-            return render(self.request, 'task/create_view.html', context)
-        priority = Priority.objects.get(id=int(form['priority'].value()))
-        active_sprint = Sprint.objects.get(project=project, status=True)
+        active_sprint = Sprint.objects.filter(project=project, status=True)
+
         if not active_sprint:
             messages.add_message(self.request, messages.ERROR, 'No active sprint!')
             context = {'form': TaskForm, 'project': project}
             return render(self.request, 'task/create_view.html', context)
-        task = Task.objects.create(project=project, time=form['time'].value(), reporter=self.request.user,
-                                   description=form['description'].value(),
-                                   status=status,
-                                   priority=priority, name=form['name'].value())
-        SprintTask.objects.create(sprint=active_sprint, task=task)
+
+        task = form.save(commit=False)
+        task.project = Project.objects.get(name=self.kwargs['project'])
+        task.reporter = self.request.user
+        task.save()
+
+        SprintTask.objects.create(sprint=active_sprint.first(), task=task)
+
         redirect_url = reverse_lazy('project_detail', args=[self.kwargs['project']])
         return HttpResponseRedirect(redirect_url)
 

@@ -1,11 +1,12 @@
 from django import forms
+
 from .models import Task
 
 
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = {'name', 'status', 'priority', 'time', 'description'}
+        fields = ('name', 'status', 'priority', 'time', 'description', 'attachment')
         widgets = {
             'name': forms.TextInput(
                 attrs={
@@ -31,5 +32,5 @@ class TaskForm(forms.ModelForm):
                 attrs={
                     'class': 'form-control'
                 }
-            )
+            ),
         }

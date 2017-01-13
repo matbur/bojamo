@@ -32,6 +32,7 @@ class Task(models.Model):
     status = models.ForeignKey(Status)
     reporter = models.ForeignKey(User)
     priority = models.ForeignKey(Priority)
+    attachment = models.FileField(upload_to='uploads', blank=True)
 
     def __str__(self):
         return self.name

@@ -48,6 +48,14 @@
                 <th>Priority</th>
                 <th>{{ task.priority }}</th>
             </tr>
+            <tr>
+                <th>Attachment</th>
+                {% if task.attachment %}
+                    <th><a href="{{ task.attachment.url }}" target="_blank">link</a></th>
+                {% else %}
+                    <th>-</th>
+                {% endif %}
+            </tr>
             </tbody>
         </table>
 
