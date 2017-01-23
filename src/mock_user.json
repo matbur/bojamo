@@ -1,5 +1,19 @@
 [
   {
+    "first_name": "mat",
+    "last_name": "bur",
+    "email": "matbur@email.com",
+    "username": "matbur",
+    "password": "pbkdf2_sha256$30000$xKJ9wDjSYWlN$JgXq3/uAqXpF9ioTneTsI+/+qkEB1Q/dD60SOQNMYbM=",
+    "permissions": 7,
+    "url": null,
+    "description": null,
+    "active": true,
+    "is_active": true,
+    "is_staff": true,
+    "is_superuser": true
+  },
+  {
     "first_name": "Craig",
     "last_name": "Carr",
     "email": "ccarr0@tumblr.com",

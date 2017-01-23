@@ -20,7 +20,7 @@ from project.models import Project
 
 def mock_user():
     with open('mock_user.json') as f:
-        for mock in json.load(f):
+        for mock in json.load(f)[:1]:
             try:
                 mock.pop('permissions')
                 mock['is_active'] = mock.pop('active')
@@ -102,9 +102,9 @@ def mock_task():
 
 if __name__ == '__main__':
     mock_user()
-    mock_group()
-    mock_user_group()
+    # mock_group()
+    # mock_user_group()
     mock_status()
     mock_priority()
-    mock_project()
-    mock_task()
+    # mock_project()
+    # mock_task()
