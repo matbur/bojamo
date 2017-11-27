@@ -1,6 +1,8 @@
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.views.static import serve
+from django.conf import settings
+from django.conf.urls import include, url
 
 from db_pro import settings
 from group import urls as group_urls
@@ -16,3 +18,10 @@ urlpatterns = [
     url(r'^project/', include(project_urls)),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^_debug/', include(debug_toolbar.urls)),
+    ] + urlpatterns
+
