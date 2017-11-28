@@ -140,20 +140,20 @@ def task_to_sprint():
         ).save()
 
 def task_to_user():
-    for s in Sprint.objects.all():
+    for s in SprintTask.objects.all():
         if 1 != s.number:
             continue
-        u = choice(UserProject.objects.filter(project=s.project)).user
-        for x in range(1, randint(2, 5)):
-            t = None
-            while(True):
-                t = choice(Task.objects.all())
-                if not UserTask.objects.filter(task=t).first():
-                    break
-            UserTask(
-                task=t,
-                user=u
-            ).save()
+        for u in UserProject.objects.filter(project=s.project).user:
+            for x in range(1, randint(2, 5)):
+                t = None
+                while(True):
+                    t = choice(SprintTask.objects.filter(sprint=s)).task
+                    if not UserTask.objects.filter(task=t).first():
+                        break
+                UserTask(
+                    task=t,
+                    user=u
+                ).save()
 
 def generate_comments():
     for t in Task.objects.all():
