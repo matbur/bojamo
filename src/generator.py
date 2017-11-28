@@ -102,7 +102,7 @@ def generate_sprint():
                 begin=date(3000,x,1),
                 end=date(3000,x,27),
                 number=x,
-                status=False if x !=0 else True
+                status=False if x !=1 else True
             ).save()
 
 def generate_status():
@@ -130,9 +130,9 @@ def generate_tasks():
             ).save()
 
 def task_to_sprint():
-    for s in Sprint.objects.all():
-        t = choice(Task.objects.filter(project=s.project))
-        if randint(0,1):
+    for t in Task.objects.all():
+        s = choice(Sprint.objects.filter(project=t.project))
+        if randint(0,2):
             continue
         SprintTask(
             sprint=s,
@@ -140,20 +140,16 @@ def task_to_sprint():
         ).save()
 
 def task_to_user():
-    for s in SprintTask.objects.all():
+    for s in Sprint.objects.all():
         if 1 != s.number:
             continue
-        for u in UserProject.objects.filter(project=s.project).user:
-            for x in range(1, randint(2, 5)):
-                t = None
-                while(True):
-                    t = choice(SprintTask.objects.filter(sprint=s)).task
-                    if not UserTask.objects.filter(task=t).first():
-                        break
-                UserTask(
-                    task=t,
-                    user=u
-                ).save()
+        for t in SprintTask.objects.filter(sprint=s):
+            t = t.task
+            u = choice(UserProject.objects.filter(project=t.project)).user
+            UserTask(
+                task=t,
+                user=u
+            ).save()
 
 def generate_comments():
     for t in Task.objects.all():
@@ -185,5 +181,6 @@ if __name__ == "__main__":
     #generate_status()
     #generate_priority()
     #generate_tasks()
+    #task_to_sprint()
     task_to_user()
-    generate_comments()
+    #generate_comments()
